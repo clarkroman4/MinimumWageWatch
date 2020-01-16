@@ -1,0 +1,27 @@
+﻿@model List<FinalProject.Models.Location>;
+@{
+    ViewData["Title"] = "All Locations";
+}
+
+<h1>All Locations</h1>
+<table class="table-striped">
+    <tr>
+        <th>Location Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>County</th>
+        <th>State</th>
+        <th>ZIP</th>
+    </tr>
+    
+    @foreach (var location in Model)
+    { <tr>
+          <td>@location.Name</td>
+            <td> @location.Address</td>
+            <td>@location.City.Name</td>
+            <td>@location.County.Name</td>
+            <td>@location.State.Name</td>
+            <td>@location.ZIP</td>
+    </tr>
+    }
+</table>
