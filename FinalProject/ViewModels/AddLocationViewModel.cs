@@ -19,15 +19,15 @@ namespace FinalProject.ViewModels
 
         [Required (ErrorMessage = "Please enter the City")]
         [Display(Name = "City")]
-        public City CityName { get; set; }
+        public string City { get; set; }
 
         [Required (ErrorMessage = "Please enter the County")]
         [Display(Name = "County")]
-        public County CountyName { get; set; }
+        public string County { get; set; }
 
         [Required (ErrorMessage = "Please enter the State")]
         [Display(Name = "State")]
-        public State StateName { get; set; }
+        public string State { get; set; }
 
         [Required]
         public int ZIP { get; set; }

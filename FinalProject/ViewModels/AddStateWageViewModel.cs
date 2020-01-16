@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalProject.Models
+namespace FinalProject.ViewModels
 {
-    public class CountyWage : StateWage
+    public class AddStateWageViewModel
     {
-        public string County { get; set; }
+
     }
 }

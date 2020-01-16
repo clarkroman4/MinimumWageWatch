@@ -47,16 +47,21 @@ namespace FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "State",
+                name: "Locations",
                 columns: table => new
                 {
-                    StateID = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    County = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    ZIP = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_State", x => x.StateID);
+                    table.PrimaryKey("PK_Locations", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +74,24 @@ namespace FinalProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WageLocation", x => new { x.LocationID, x.WageID });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Wages",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MinWage = table.Column<double>(nullable: false),
+                    EffectiveDate = table.Column<DateTime>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    State = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    County = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wages", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,132 +200,6 @@ namespace FinalProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "County",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    StateID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_County", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_County_State_StateID",
-                        column: x => x.StateID,
-                        principalTable: "State",
-                        principalColumn: "StateID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "City",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(nullable: false),
-                    CountyID = table.Column<int>(nullable: true),
-                    StateID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_City", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_City_County_CountyID",
-                        column: x => x.CountyID,
-                        principalTable: "County",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_City_State_StateID",
-                        column: x => x.StateID,
-                        principalTable: "State",
-                        principalColumn: "StateID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Wages",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MinWage = table.Column<double>(nullable: false),
-                    EffectiveDate = table.Column<DateTime>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    StateID = table.Column<int>(nullable: true),
-                    CityID = table.Column<int>(nullable: true),
-                    CountyID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Wages", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Wages_City_CityID",
-                        column: x => x.CityID,
-                        principalTable: "City",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Wages_County_CountyID",
-                        column: x => x.CountyID,
-                        principalTable: "County",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Wages_State_StateID",
-                        column: x => x.StateID,
-                        principalTable: "State",
-                        principalColumn: "StateID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    CityID = table.Column<int>(nullable: true),
-                    CountyID = table.Column<int>(nullable: true),
-                    StateID = table.Column<int>(nullable: true),
-                    ZIP = table.Column<int>(nullable: false),
-                    WageID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Locations_City_CityID",
-                        column: x => x.CityID,
-                        principalTable: "City",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Locations_County_CountyID",
-                        column: x => x.CountyID,
-                        principalTable: "County",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Locations_State_StateID",
-                        column: x => x.StateID,
-                        principalTable: "State",
-                        principalColumn: "StateID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Locations_Wages_WageID",
-                        column: x => x.WageID,
-                        principalTable: "Wages",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -341,56 +238,6 @@ namespace FinalProject.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_CountyID",
-                table: "City",
-                column: "CountyID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_StateID",
-                table: "City",
-                column: "StateID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_County_StateID",
-                table: "County",
-                column: "StateID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_CityID",
-                table: "Locations",
-                column: "CityID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_CountyID",
-                table: "Locations",
-                column: "CountyID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_StateID",
-                table: "Locations",
-                column: "StateID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_WageID",
-                table: "Locations",
-                column: "WageID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Wages_CityID",
-                table: "Wages",
-                column: "CityID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Wages_CountyID",
-                table: "Wages",
-                column: "CountyID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Wages_StateID",
-                table: "Wages",
-                column: "StateID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -417,22 +264,13 @@ namespace FinalProject.Migrations
                 name: "WageLocation");
 
             migrationBuilder.DropTable(
+                name: "Wages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Wages");
-
-            migrationBuilder.DropTable(
-                name: "City");
-
-            migrationBuilder.DropTable(
-                name: "County");
-
-            migrationBuilder.DropTable(
-                name: "State");
         }
     }
 }

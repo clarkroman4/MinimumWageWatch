@@ -7,6 +7,6 @@ namespace FinalProject.Models
 {
     public class CityWage : StateWage
     {
-        public City City { get; set; }
+        public string City { get; set; }
     }
 }

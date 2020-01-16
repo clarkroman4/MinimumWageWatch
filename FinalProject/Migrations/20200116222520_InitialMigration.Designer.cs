@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200116190522_InitialMigration")]
+    [Migration("20200116222520_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,51 +20,6 @@ namespace FinalProject.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FinalProject.Models.City", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CountyID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StateID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CountyID");
-
-                    b.HasIndex("StateID");
-
-                    b.ToTable("City");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.County", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StateID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("StateID");
-
-                    b.ToTable("County");
-                });
 
             modelBuilder.Entity("FinalProject.Models.Location", b =>
                 {
@@ -76,50 +31,24 @@ namespace FinalProject.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CityID")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CountyID")
-                        .HasColumnType("int");
+                    b.Property<string>("County")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WageID")
-                        .HasColumnType("int");
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ZIP")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CityID");
-
-                    b.HasIndex("CountyID");
-
-                    b.HasIndex("StateID");
-
-                    b.HasIndex("WageID");
-
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.State", b =>
-                {
-                    b.Property<int>("StateID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StateID");
-
-                    b.ToTable("State");
                 });
 
             modelBuilder.Entity("FinalProject.Models.Wage", b =>
@@ -363,10 +292,8 @@ namespace FinalProject.Migrations
                 {
                     b.HasBaseType("FinalProject.Models.Wage");
 
-                    b.Property<int?>("StateID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StateID");
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("StateWage");
                 });
@@ -375,10 +302,8 @@ namespace FinalProject.Migrations
                 {
                     b.HasBaseType("FinalProject.Models.StateWage");
 
-                    b.Property<int?>("CityID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CityID");
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("CityWage");
                 });
@@ -387,49 +312,10 @@ namespace FinalProject.Migrations
                 {
                     b.HasBaseType("FinalProject.Models.StateWage");
 
-                    b.Property<int?>("CountyID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CountyID");
+                    b.Property<string>("County")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("CountyWage");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.City", b =>
-                {
-                    b.HasOne("FinalProject.Models.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyID");
-
-                    b.HasOne("FinalProject.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateID");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.County", b =>
-                {
-                    b.HasOne("FinalProject.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateID");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.Location", b =>
-                {
-                    b.HasOne("FinalProject.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID");
-
-                    b.HasOne("FinalProject.Models.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyID");
-
-                    b.HasOne("FinalProject.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateID");
-
-                    b.HasOne("FinalProject.Models.Wage", "Wage")
-                        .WithMany()
-                        .HasForeignKey("WageID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -481,27 +367,6 @@ namespace FinalProject.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FinalProject.Models.StateWage", b =>
-                {
-                    b.HasOne("FinalProject.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateID");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.CityWage", b =>
-                {
-                    b.HasOne("FinalProject.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID");
-                });
-
-            modelBuilder.Entity("FinalProject.Models.CountyWage", b =>
-                {
-                    b.HasOne("FinalProject.Models.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyID");
                 });
 #pragma warning restore 612, 618
         }

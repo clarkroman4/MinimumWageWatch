@@ -7,6 +7,6 @@ namespace FinalProject.Models
 {
     public class StateWage : Wage
     {
-        public State State{ get; set; }
+        public string State{ get; set; }
     }
 }
