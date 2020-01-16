@@ -9,5 +9,10 @@ namespace FinalProject.Models
     {
         public int LocationID { get; set; }
         public int WageID { get; set; }
+
+        public WageLocation()
+        {
+
+        }
     }
 }
