@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    public class CityWage : StateWage
+    public class CityWage
     {
+        public int ID { get; set; }
+        public double MinWage { get; set; }
+        public DateTime EffectiveDate { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
     }
 }

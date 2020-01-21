@@ -21,7 +21,7 @@ namespace FinalProject.Data
 
         public DbSet<Location> Locations { get; set; }
 
-        public DbSet<Wage> Wages { get; set; }
+        public DbSet<FedWage> Wages { get; set; }
 
         public DbSet <StateWage> StateWages { get; set; }
 

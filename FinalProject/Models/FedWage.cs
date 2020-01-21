@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    public class Wage
+    public class FedWage
     {
         public int ID { get; set; }
-        public double MinWage { get; set; }
         public DateTime EffectiveDate { get; set; }
+        public double MinWage { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model List<FinalProject.Models.StateWage>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>State Minimum Wages</h1>
+<table>
+    <tr>
+        <th>State</th>
+        <th>Minimum Wage</th>
+        <th>Effective Date</th>
+        <th>City</th>
+    </tr>
+    @foreach (var wage in Model)
+    {
+        <tr>
+            <td>@wage.State</td>
+            <td>@wage.MinWage</td>
+            <td>@wage.EffectiveDate</td>
+            <td><a asp-controller="Wage" asp-action="City">See City Minimum Wages for @wage.State</a></td>
+        </tr>
+    }
+</table>
+

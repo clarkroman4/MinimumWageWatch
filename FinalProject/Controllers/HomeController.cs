@@ -43,6 +43,24 @@ namespace FinalProject.Controllers
             CreateUserViewModel createUserViewModel = new CreateUserViewModel();
             return View(createUserViewModel);
         }
+        [HttpPost]
+        public IActionResult CreateUser(CreateUserViewModel createUser)
+        {
+            if (ModelState.IsValid)
+            {
+                User newUser = new User
+                {
+                    Email = createUser.Email,
+                    Username = createUser.Username,
+                    Password = createUser.Password
+                };
+                context.Add(newUser);
+                context.SaveChanges();
+                return Redirect("/location");
+            }
+
+            return View(createUser);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
