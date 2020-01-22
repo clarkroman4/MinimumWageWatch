@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Welcome to MinimumWageWatch!</h1>
+<hr />
+<div>
+    <h3>Minimum Wage</h3>
+    <p><a asp-controller="Wage" asp-action="Index">See all Minimum Wages</a></p>
+</div>
+<div>
+    <h5>Want to add a new  minimum wage?</h5>
+    <p><a asp-controller="Wage" asp-action="AddStateWage">Add New State Minimum Wage</a></p>
+    <p><a asp-controller="Wage" asp-action="AddCountyWage">Add New County Minimum Wage</a></p>
+    <p><a asp-controller="Wage" asp-action="AddCityWage">Add New City Minimum Wage</a></p>
+</div>
+<hr />
+<div>
+    <h3>Locations</h3>
+   <p><a asp-controller="Location" asp-action="Index">See All Locations</a></p>
+    <p><a asp-controller="Location" asp-action="AddLocation">Add New Location</a></p>
+</div>

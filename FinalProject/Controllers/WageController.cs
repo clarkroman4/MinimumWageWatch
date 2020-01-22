@@ -77,7 +77,7 @@ namespace FinalProject.Controllers
                 context.Add(newCityWage);
                 context.SaveChanges();
 
-                return Redirect("/?state=" + addCityWageViewModel.State.ToString());
+                return Redirect("/SeeCityCountyWage/" + addCityWageViewModel.State.ToString());
             }
 
             return View(addCityWageViewModel);
@@ -102,9 +102,25 @@ namespace FinalProject.Controllers
                 };
                 context.Add(newCountyWage);
                 context.SaveChanges();
+
+                return Redirect("/SeeCityCountyWage/" + addCountyWageViewModel.State.ToString());
             }
 
             return View(addCountyWageViewModel);
+        }
+
+        public IActionResult SeeCityCountyWage (string state)
+        {
+            List<CityWage> cityWages = context.CityWages.Where(cw => cw.State == state).ToList();
+            List<CountyWage> countyWages = context.CountyWages.Where(ctw => ctw.State == state).ToList();
+
+            ViewCityCountyWagesViewModel viewCityCountyWagesViewModel = new ViewCityCountyWagesViewModel
+            {
+                CityWage = cityWages,
+                CountyWage = countyWages
+            };
+
+            return View(viewCityCountyWagesViewModel);
         }
     }
 }
