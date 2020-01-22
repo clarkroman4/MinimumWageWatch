@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace FinalProject.ViewModels
 {
-    public class AddCityWageViewModel
+    public class AddCountyWageViewModel
     {
-        [Required(ErrorMessage = "Please Enter the City Name")]
-        public string City { get; set; }
-
-        [Required (ErrorMessage = "Please Enter the County Name")]
+        [Required(ErrorMessage="Please enter the county name")]
         public string County { get; set; }
 
         [Required(ErrorMessage = "Please Enter the full State name")]
-        public string State{ get; set; }
+        [StringLengthAttribute(50, MinimumLength = 3,ErrorMessage = "Please enter the full state name")]
+        public string State { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
@@ -24,9 +22,5 @@ namespace FinalProject.ViewModels
         [Required]
         [DataType(DataType.Date)]
         public DateTime EffectiveDate { get; set; }
-
-        public AddCityWageViewModel() { }
-
-
     }
 }

@@ -19,7 +19,7 @@ namespace FinalProject.Controllers
         }
         public IActionResult Index()
         {
-            List<StateWage> stateWages = context.StateWages.ToList();
+            List<StateWage> stateWages = context.StateWages.OrderBy(sw => sw.State).ToList();
             return View(stateWages);
         }
         public IActionResult CityWages()
@@ -49,7 +49,7 @@ namespace FinalProject.Controllers
                 context.Add(newStateWage);
                 context.SaveChanges();
 
-                return Redirect("Wage/Index");
+                return Redirect("/Index");
             }
 
             return View(addStateWageViewModel);
@@ -69,6 +69,7 @@ namespace FinalProject.Controllers
                 {
                     MinWage = addCityWageViewModel.MinWage,
                     City = addCityWageViewModel.City,
+                    County = addCityWageViewModel.County,
                     State = addCityWageViewModel.State,
                     EffectiveDate = addCityWageViewModel.EffectiveDate
                 };
@@ -76,10 +77,34 @@ namespace FinalProject.Controllers
                 context.Add(newCityWage);
                 context.SaveChanges();
 
-                return Redirect("Wage/?state=" + addCityWageViewModel.State.ToString());
+                return Redirect("/?state=" + addCityWageViewModel.State.ToString());
             }
 
             return View(addCityWageViewModel);
+        }
+
+        public IActionResult AddCountyWage()
+        {
+            AddCountyWageViewModel addCountyWageViewModel = new AddCountyWageViewModel();
+            return View(addCountyWageViewModel); 
+        }
+
+        [HttpPost]
+        public IActionResult AddCountyWage(AddCountyWageViewModel addCountyWageViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                CountyWage newCountyWage = new CountyWage {
+                    County = addCountyWageViewModel.County,
+                    State = addCountyWageViewModel.State,
+                    MinWage = addCountyWageViewModel.MinWage,
+                    EffectiveDate = addCountyWageViewModel.EffectiveDate
+                };
+                context.Add(newCountyWage);
+                context.SaveChanges();
+            }
+
+            return View(addCountyWageViewModel);
         }
     }
 }

@@ -1,22 +1,17 @@
-﻿@model FinalProject.ViewModels.AddCityWageViewModel
+﻿@model FinalProject.ViewModels.AddCountyWageViewModel
 
 @{
-    ViewData["Title"] = "AddCityWage";
+    ViewData["Title"] = "AddCountyWage";
 }
 
-<h1>AddCityWage</h1>
+<h1>AddCountyWage</h1>
 
-<h4>CityWage</h4>
+<h4>AddCountyWageViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddCityWage" method="post">
+        <form asp-action="AddCountyWage" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="County" class="control-label"></label>
                 <input asp-for="County" class="form-control" />
@@ -38,7 +33,7 @@
                 <span asp-validation-for="EffectiveDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add New City Wage" class="btn btn-primary" />
+                <input type="submit" value="Add County Wage" class="btn btn-primary" />
             </div>
         </form>
     </div>
