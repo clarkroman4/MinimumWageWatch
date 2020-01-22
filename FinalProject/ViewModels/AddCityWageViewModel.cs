@@ -15,6 +15,7 @@ namespace FinalProject.ViewModels
         public string County { get; set; }
 
         [Required(ErrorMessage = "Please Enter the full State name")]
+        [StringLengthAttribute(50, MinimumLength = 3, ErrorMessage = "Please enter the full state name")]
         public string State{ get; set; }
 
         [Required]

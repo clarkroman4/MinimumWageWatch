@@ -14,7 +14,7 @@ namespace FinalProject.ViewModels
 
         
         [Required (ErrorMessage="Please Select a State")]
-        [DataType(DataType.Text)]
+        [StringLengthAttribute(50, MinimumLength = 3, ErrorMessage = "Please enter the full state name")]
         public string State { get; set; }
 
         [Required (ErrorMessage = "Please enter a valid date")]
