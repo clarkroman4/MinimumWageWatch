@@ -1,4 +1,5 @@
-﻿@model List<FinalProject.Models.Location>;
+﻿
+@model FinalProject.ViewModels.ViewLocationsViewModel
 @{
     ViewData["Title"] = "All Locations";
 }
@@ -6,6 +7,7 @@
 <h1>All Locations</h1>
 <table class="table-striped">
     <tr>
+        <th>Minimum Wage</th>
         <th>Location Name</th>
         <th>Address</th>
         <th>City</th>
@@ -13,15 +15,16 @@
         <th>State</th>
         <th>ZIP</th>
     </tr>
-    
-    @foreach (var location in Model)
-    { <tr>
-          <td>@location.Name</td>
-            <td> @location.Address</td>
-            <td>@location.City</td>
-            <td>@location.County</td>
-            <td>@location.State</td>
-            <td>@location.ZIP</td>
+
+    @foreach(Location location in Model.Locations) {
+    <tr>
+        <td>@Model.Wage</td>
+        <td>@location.Name</td>
+        <td> @location.Address</td>
+        <td>@location.City</td>
+        <td>@location.County</td>
+        <td>@location.State</td>
+        <td>@location.ZIP</td>
     </tr>
     }
 </table>

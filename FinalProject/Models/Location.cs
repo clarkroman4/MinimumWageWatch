@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinalProject.Data;
 
 namespace FinalProject.Models
 {
@@ -15,5 +16,6 @@ namespace FinalProject.Models
         public string State { get; set; }
         public int ZIP { get; set; }
        
+
     }
 }
