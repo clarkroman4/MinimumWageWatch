@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalProject.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace FinalProject.ViewModels
     public class AddCityWageViewModel
     {
         [Required(ErrorMessage = "Please Enter the City Name")]
-        public string City { get; set; }
+        public string City  { get; set; }
 
         [Required (ErrorMessage = "Please Enter the County Name")]
         public string County { get; set; }
 
         [Required(ErrorMessage = "Please Enter the full State name")]
         [StringLengthAttribute(50, MinimumLength = 3, ErrorMessage = "Please enter the full state name")]
-        public string State{ get; set; }
+        public string State { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]

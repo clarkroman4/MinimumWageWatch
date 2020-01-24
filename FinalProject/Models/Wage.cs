@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    public class FedWage
+    public class Wage
     {
         public int ID { get; set; }
         public DateTime EffectiveDate { get; set; }

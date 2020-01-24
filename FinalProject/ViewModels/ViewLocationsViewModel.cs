@@ -8,9 +8,7 @@ namespace FinalProject.ViewModels
 {
     public class ViewLocationsViewModel
     {
-        public IEnumerable <Location> Locations { get; set; }
-        public double Wage { get; set; }
-
+        public IEnumerable <WageLocation> WageLocations { get; set; }
 
         public ViewLocationsViewModel()
         {

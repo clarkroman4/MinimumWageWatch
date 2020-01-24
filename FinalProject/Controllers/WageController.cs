@@ -49,7 +49,7 @@ namespace FinalProject.Controllers
                 context.Add(newStateWage);
                 context.SaveChanges();
 
-                return Redirect("/Index");
+                return Redirect("/Wage/Index");
             }
 
             return View(addStateWageViewModel);
@@ -122,6 +122,104 @@ namespace FinalProject.Controllers
             };
 
             return View(viewCityCountyWagesViewModel);
+        }
+
+        public IActionResult DeleteStateWage (int ID)
+        {
+            StateWage stateWage = context.StateWages.Single(sw => sw.ID == ID);
+            context.Remove(stateWage);
+            context.SaveChanges();
+
+            return Redirect("/Wage/Index");
+        }
+
+        public IActionResult EditStateWage(int ID)
+        {
+            StateWage stateWage = context.StateWages.Single(sw => sw.ID == ID);
+            return View(stateWage);
+        }
+
+        [HttpPost]
+        public IActionResult EditStateWage(AddStateWageViewModel addStateWageViewModel, int ID)
+        {
+            if (ModelState.IsValid)
+            {
+                StateWage stateWage = context.StateWages.Single(sw => sw.ID == ID);
+                stateWage.MinWage = addStateWageViewModel.MinWage;
+                stateWage.EffectiveDate = addStateWageViewModel.EffectiveDate;
+                stateWage.State = addStateWageViewModel.State;
+                context.SaveChanges();
+
+                return Redirect("/Wage/Index");
+            }
+            return View(addStateWageViewModel);
+        }
+
+        public IActionResult DeleteCityWage (int ID)
+        {
+            CityWage cityWage = context.CityWages.Single(cw => cw.ID == ID);
+            context.Remove(cityWage);
+            context.SaveChanges();
+
+            return Redirect("/Wage/SeeCityCountyWage?state=" + cityWage.State.ToString());
+        }
+
+        public IActionResult DeleteCountyWage (int ID)
+        {
+            CountyWage countyWage = context.CountyWages.Single(ctw => ctw.ID == ID);
+            context.Remove(countyWage);
+            context.SaveChanges();
+
+            return Redirect("/Wage/SeeCityCountyWage?state=" + countyWage.State.ToString());
+        }
+
+        public IActionResult EditCityWage(int ID)
+        {
+            CityWage cityWage = context.CityWages.Single(cw => cw.ID == ID);
+            return View(cityWage);
+        }
+        [HttpPost]
+        public IActionResult EditCityWage(AddCityWageViewModel addCityWageViewModel, int ID)
+        {
+            if (ModelState.IsValid)
+            {
+                CityWage cityWage = context.CityWages.Single(cw => cw.ID == ID);
+                cityWage.City = addCityWageViewModel.City;
+                cityWage.County = addCityWageViewModel.County;
+                cityWage.State = addCityWageViewModel.State;
+                cityWage.EffectiveDate = addCityWageViewModel.EffectiveDate;
+                cityWage.MinWage = addCityWageViewModel.MinWage;
+
+                context.SaveChanges();
+
+                return Redirect("Wage/SeeCityCountyWage?state=" + cityWage.State.ToString());
+            }
+            return View(addCityWageViewModel);
+        }
+
+        public IActionResult EditCountyWage(int ID)
+        {
+            CountyWage countyWage = context.CountyWages.Single(ctw => ctw.ID == ID);
+            return View(countyWage);
+        }
+
+        [HttpPost]
+        public IActionResult EditCountyWage(AddCountyWageViewModel addCountyWageViewModel, int ID)
+        {
+            if (ModelState.IsValid) 
+            { 
+                CountyWage countyWage = context.CountyWages.Single(ctw => ctw.ID == ID);
+                countyWage.County = addCountyWageViewModel.County;
+                countyWage.State = addCountyWageViewModel.State;
+                countyWage.EffectiveDate = addCountyWageViewModel.EffectiveDate;
+                countyWage.MinWage = addCountyWageViewModel.MinWage;
+
+                context.SaveChanges();
+                return Redirect("/Wage/SeeCityCountyWage?state=" + countyWage.State.ToString());
+            }
+            return View(addCountyWageViewModel);
+
+
         }
     }
 }

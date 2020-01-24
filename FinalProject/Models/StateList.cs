@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    public class States 
+    public class States
     {
         public List<string> states = new List<string> { "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas",
             "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
@@ -16,5 +16,5 @@ namespace FinalProject.Models
             "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico",
             "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah",
             "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
-}
+    }
 }

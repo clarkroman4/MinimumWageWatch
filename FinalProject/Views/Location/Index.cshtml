@@ -5,6 +5,7 @@
 }
 
 <h1>All Locations</h1>
+<form asp-controller="location" asp-action="addlocation" method="post"><input type="submit" class="btn-primary" value="Add Location" /></form>
 <table class="table-striped">
     <tr>
         <th>Minimum Wage</th>
@@ -14,17 +15,21 @@
         <th>County</th>
         <th>State</th>
         <th>ZIP</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
 
-    @foreach(Location location in Model.Locations) {
+    @foreach(var location in Model.WageLocations) {
     <tr>
-        <td>@Model.Wage</td>
-        <td>@location.Name</td>
+        <td>@location.Wage</td>
+        <td>@location.LocationName</td>
         <td> @location.Address</td>
         <td>@location.City</td>
         <td>@location.County</td>
         <td>@location.State</td>
         <td>@location.ZIP</td>
+        <td><form asp-controller="location" asp-action="EditLocation" asp-route-id="@location.ID" method="post"><input type="submit" value="Edit" class="btn-secondary"/></form></td>
+        <td><form asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.ID" method="post"><input type="submit" value="Delete" class="btn-secondary" /></form></td>
     </tr>
     }
 </table>

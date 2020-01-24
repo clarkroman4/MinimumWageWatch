@@ -5,6 +5,10 @@
 
 <h1>See City and County Minimum Wages</h1>
 <div>
+    <form asp-controller="Wage" asp-action="AddCityWage" method="post"><input type="submit" class="btn-primary" value="Add New City Wage" /></form>
+    <form asp-controller="Wage" asp-action="AddCountyWage" method="post"><input type="submit" class="btn-primary" value="Add New County Wage" /></form>
+</div>
+<div>
     <h3>City Minimum Wages</h3>
     <table class="table-striped">
         <tr>
@@ -12,6 +16,8 @@
             <th>State Name</th>
             <th>Minimum Wage</th>
             <th>Effective Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
       
             @foreach (var city in Model.CityWage)
@@ -21,6 +27,8 @@
                 <td>@city.State</td>
                 <td>@city.MinWage</td>
                 <td>@city.EffectiveDate</td>
+                <td><form asp-controller="Wage" asp-action="EditCityWage" asp-route-id="@city.ID"><input type="submit" value="Edit" class="btn-secondary"/></form></td>
+                 <td><form asp-controller="Wage" asp-action="DeleteCityWage" asp-route-id="@city.ID"><input type="submit" value="Delete" class="btn-secondary"/></form></td>
             </tr>
             }
  
@@ -34,6 +42,9 @@
             <th>State Name</th>
             <th>Minimum Wage</th>
             <th>Effective Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
         </tr>
         <tr>
             @foreach (var county in Model.CountyWage)
@@ -42,6 +53,8 @@
                 <td>@county.State</td>
                 <td>$@county.MinWage</td>
                 <td>@county.EffectiveDate</td>
+                <td><form asp-controller="Wage" asp-action="EditCountyWage" asp-route-id="@county.ID"><input type="submit" value="Edit" class="btn-secondary" /></form></td>
+                <td><form asp-controller="Wage" asp-action="DeleteCountyWage" asp-route-id="@county.ID"><input type="submit" value="Delete" class="btn-secondary" /></form></td>
             }
         </tr>
     </table>

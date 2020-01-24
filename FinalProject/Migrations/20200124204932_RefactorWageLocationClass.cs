@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FinalProject.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class RefactorWageLocationClass : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,39 @@ namespace FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CityWages",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MinWage = table.Column<double>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    County = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    EffectiveDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CityWages", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CountyWages",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    County = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    MinWage = table.Column<double>(nullable: false),
+                    EffectiveDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CountyWages", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -65,15 +98,38 @@ namespace FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WageLocation",
+                name: "StateWages",
                 columns: table => new
                 {
-                    LocationID = table.Column<int>(nullable: false),
-                    WageID = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MinWage = table.Column<double>(nullable: false),
+                    State = table.Column<string>(nullable: true),
+                    EffectiveDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WageLocation", x => new { x.LocationID, x.WageID });
+                    table.PrimaryKey("PK_StateWages", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WageLocations",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationID = table.Column<int>(nullable: false),
+                    Wage = table.Column<double>(nullable: false),
+                    LocationName = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    County = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    ZIP = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WageLocations", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,12 +138,8 @@ namespace FinalProject.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MinWage = table.Column<double>(nullable: false),
                     EffectiveDate = table.Column<DateTime>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    State = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    County = table.Column<string>(nullable: true)
+                    MinWage = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,10 +310,19 @@ namespace FinalProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CityWages");
+
+            migrationBuilder.DropTable(
+                name: "CountyWages");
+
+            migrationBuilder.DropTable(
                 name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "WageLocation");
+                name: "StateWages");
+
+            migrationBuilder.DropTable(
+                name: "WageLocations");
 
             migrationBuilder.DropTable(
                 name: "Wages");

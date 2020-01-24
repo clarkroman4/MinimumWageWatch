@@ -4,12 +4,16 @@
 }
 
 <h1>State Minimum Wages</h1>
+<form asp-controller="Wage" asp-action="AddStateWage"><input class="btn-primary"type="submit" value="Add New State Wage"/></form>
 <table>
     <tr>
         <th>State</th>
         <th>Minimum Wage</th>
         <th>Effective Date</th>
-        <th>City</th>
+        <th>Cities</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
     </tr>
     @foreach (var wage in Model)
     {
@@ -18,6 +22,8 @@
             <td>@wage.MinWage</td>
             <td>@wage.EffectiveDate</td>
             <td><a asp-controller="wage" asp-action="SeeCityCountyWage" asp-route-state="@wage.State">See City Minimum Wages for @wage.State</a></td>
+            <td><form asp-controller="wage" asp-action="EditStateWage" asp-route-id="@wage.ID"><input value="Edit" type="submit" class="btn-secondary"/></form></td>
+            <td><form asp-controller="wage" asp-action="DeleteStateWage" asp-route-id="@wage.ID"><input value="Delete" type="submit" class="btn-secondary"/></form></td>
         </tr>
     }
 </table>
