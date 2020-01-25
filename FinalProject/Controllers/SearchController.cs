@@ -21,22 +21,99 @@ namespace FinalProject.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public IActionResult Index(SearchViewModel searchViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        string searchTerm = searchViewModel.ToString();
-        //        List<WageLocation> searchResults = new List<WageLocation>();
+        [HttpPost]
+        public IActionResult SearchResults(SearchViewModel searchViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                int searchTermInt = 0;
+                double searchTermDouble = 0;
+                string searchTermString = "";
 
-        //        if 
+                if (searchViewModel.SearchBy == "ZIP")
+                {
+                     searchTermInt = int.Parse(searchViewModel.SearchTerm);
+                }
+                else if (searchViewModel.SearchBy =="Minimum Wage")
+                {
+                    searchTermDouble = double.Parse(searchViewModel.SearchTerm);
+                } else
+                {
+                    searchTermString = searchViewModel.SearchTerm.ToString();
+                }
+                List<WageLocation> allWageLocations = context.WageLocations.ToList();
+                List<WageLocation> searchResults = new List<WageLocation>();
 
+                if (searchViewModel.SearchBy == "Minimum Wage")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if(searchTermDouble == wl.Wage)
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                } else if (searchViewModel.SearchBy == "Location Name")
+                {
+                    foreach(var wl in allWageLocations)
+                    {
+                        if(wl.LocationName.Contains(searchTermString))
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                } else if (searchViewModel.SearchBy == "Address")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if (wl.Address.Contains(searchTermString))
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                } else if (searchViewModel.SearchBy =="City")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if (wl.City.Contains(searchTermString))
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                } else if (searchViewModel.SearchBy == "County")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if (wl.County.Contains(searchTermString))
+                        {
+                            searchResults.Add(wl);
+                        }
 
-        //        return View(searchResults);
-        //    }
-
-        //    return View(searchViewModel);
-        //}
+                    }
+                } else if (searchViewModel.SearchBy == "State")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if (wl.State.Contains(searchTermString))
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                } else if (searchViewModel.SearchBy == "ZIP")
+                {
+                    foreach (var wl in allWageLocations)
+                    {
+                        if (wl.ZIP == searchTermInt)
+                        {
+                            searchResults.Add(wl);
+                        }
+                    }
+                }
+                ViewBag.searchResults = searchResults;
+                return View();
+              }
+            return View(searchViewModel);
+        }
     }
-   
+
 }

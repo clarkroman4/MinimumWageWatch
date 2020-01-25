@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "SearchResults";
+}
+
+<h1>Search Results</h1>
+@if (Enumerable.Count(ViewBag.searchResults) == 0)
+{
+    <p>Sorry, no results for that search term.</p>
+    <form asp-controller="Search" asp-action="Index"><input type="submit" class="btn-primary" value="Return to Search Home"/></form>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Minimum Wage</th>
+            <th>Location Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>County</th>
+            <th>State</th>
+            <th>ZIP</th>
+        </tr>
+
+        @foreach (WageLocation searchResult in ViewBag.searchResults)
+        {
+            <tr>
+                <td>@searchResult.Wage</td>
+                <td>@searchResult.LocationName</td>
+                <td>@searchResult.Address</td>
+                <td>@searchResult.City</td>
+                <td>@searchResult.County</td>
+                <td>@searchResult.State</td>
+                <td>@searchResult.ZIP</td>
+            </tr>
+        }
+
+    </table>
+}

@@ -12,5 +12,10 @@ namespace FinalProject.ViewModels
         [Display(Name="Search Term")]
         public string SearchTerm { get; set; }
 
+        [Display(Name = "Search By")]
+        public string SearchBy { get; set; } 
+        
+        public SearchViewModel() { }
+
     }
 }
