@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FinalProject.Data;
 using FinalProject.Models;
@@ -229,6 +230,45 @@ namespace FinalProject.Controllers
 
             return Redirect("/Location/Index");
         }
-    }
 
+        [HttpPost]
+        public FileResult Export()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (WageLocation wageLocation in wageLocations)
+            {
+
+                string minWage = wageLocation.Wage.ToString();
+                sb.Append(minWage + ',');
+
+                string locName = wageLocation.LocationName;
+                sb.Append(locName + ',');
+
+                string address = wageLocation.Address;
+                sb.Append(address + ',');
+
+                string city = wageLocation.City;
+                sb.Append(city + ',');
+
+                string county = wageLocation.County;
+                sb.Append(county + ',');
+
+                string state = wageLocation.State;
+                sb.Append(state + ',');
+
+                string ZIP = wageLocation.ZIP.ToString();
+                sb.Append(ZIP + ',');
+
+                sb.Append("\r\n");
+
+            }
+
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "WageLocations.csv");
+        }
+
+        }
 }
+
