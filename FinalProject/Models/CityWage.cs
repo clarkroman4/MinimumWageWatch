@@ -7,7 +7,7 @@ namespace FinalProject.Models
 {
     public class CityWage { 
         public int ID { get; set; }
-        public double MinWage { get; set; }
+        public decimal MinWage { get; set; }
         public string City { get; set; }
         public string County { get; set; }
         public string State { get; set; }

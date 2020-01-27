@@ -1,4 +1,5 @@
 ﻿using FinalProject.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ namespace FinalProject.ViewModels
 {
     public class AddLocationViewModel
     {
+
         [Required(ErrorMessage="You must enter a name for the location")]
         [Display(Name="Location Name")]
         public string Name { get; set; }

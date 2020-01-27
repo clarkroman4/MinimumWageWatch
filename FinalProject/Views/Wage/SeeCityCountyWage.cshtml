@@ -25,7 +25,7 @@
              <tr>
                 <td>@city.City</td>
                 <td>@city.State</td>
-                <td>@city.MinWage</td>
+                <td>$@city.MinWage</td>
                 <td>@city.EffectiveDate</td>
                 <td><form asp-controller="Wage" asp-action="EditCityWage" asp-route-id="@city.ID"><input type="submit" value="Edit" class="btn-secondary"/></form></td>
                  <td><form asp-controller="Wage" asp-action="DeleteCityWage" asp-route-id="@city.ID"><input type="submit" value="Delete" class="btn-secondary"/></form></td>

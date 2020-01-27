@@ -9,7 +9,7 @@ namespace FinalProject.Models
     {
         public int ID { get; set; }
         public int LocationID { get; set; }
-        public double Wage { get; set; }
+        public decimal Wage { get; set; }
         public string LocationName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

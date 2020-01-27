@@ -13,32 +13,32 @@
         <form asp-action="EditLocation" method="post">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" value="@Model.Name"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" class="form-control" value="@Model.Address" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
+                <input asp-for="City" class="form-control" value="@Model.City" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="County" class="control-label"></label>
-                <input asp-for="County" class="form-control" />
+                <input asp-for="County" class="form-control" value="@Model.County" />
                 <span asp-validation-for="County" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
+                <input asp-for="State" class="form-control" value="@Model.State"/>
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ZIP" class="control-label"></label>
-                <input asp-for="ZIP" class="form-control" />
+                <input asp-for="ZIP" class="form-control" value="@Model.ZIP"/>
                 <span asp-validation-for="ZIP" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -4,10 +4,9 @@
     ViewData["Title"] = "View";
 }
 
-<h1>Add Location</h1>
 
-<h4>Add Location</h4>
-<hr />
+<h4>Add Individual Location</h4>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddLocation" method="post">
@@ -48,7 +47,14 @@
         </form>
     </div>
 </div>
-
+<br />
+<hr />
+<br />
+<div>
+    <form asp-controller="Location" asp-action="ImportCSV">
+        <input type="submit" class="btn btn-primary" value="Import Multiple Locations with File Upload"/>
+    </form>
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

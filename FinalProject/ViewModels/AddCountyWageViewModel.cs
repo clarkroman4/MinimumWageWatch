@@ -18,7 +18,7 @@ namespace FinalProject.ViewModels
 
         [Required]
         [DataType(DataType.Currency)]
-        public double MinWage { get; set; }
+        public decimal MinWage { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

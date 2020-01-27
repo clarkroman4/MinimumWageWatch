@@ -10,7 +10,7 @@ namespace FinalProject.ViewModels
     {
         [Required(ErrorMessage = "Please enter the minimum wage")]
         [DataType(DataType.Currency)]
-        public float MinWage { get; set; }
+        public decimal MinWage { get; set; }
 
         
         [Required (ErrorMessage="Please Select a State")]

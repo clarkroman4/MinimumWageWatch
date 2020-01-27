@@ -9,6 +9,6 @@ namespace FinalProject.Models
     {
         public int ID { get; set; }
         public DateTime EffectiveDate { get; set; }
-        public double MinWage { get; set; }
+        public decimal MinWage { get; set; }
     }
 }

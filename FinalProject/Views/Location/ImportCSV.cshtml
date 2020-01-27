@@ -1,0 +1,30 @@
+﻿@model FinalProject.ViewModels.UploadFileViewModel
+
+@{
+    ViewData["Title"] = "UploadCSV";
+}
+
+
+
+<h4>Upload Multiple Locations with CSV</h4>
+<hr />
+<p>For CSV File Specifications, see <a asp-controller="Location" asp-action="CSVSpecs">here.</a></p>
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="ImportCSV">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="file" />
+            <span asp-validation-for="file"></span>
+            <div class="form-group">
+                <input type="submit" value="Upload File" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-danger">
+@ViewBag.Message
+    </div>
+<div>
+    <a asp-controller="location" asp-action="AddLocation">Add Individual Location</a>
+</div>
+

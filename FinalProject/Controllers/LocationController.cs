@@ -8,6 +8,11 @@ using FinalProject.Models;
 using FinalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.Web;
 
 namespace FinalProject.Controllers
 {
@@ -18,15 +23,28 @@ namespace FinalProject.Controllers
         public LocationController(ApplicationDbContext dbContext)
         {
             context = dbContext;
+
         }
 
         public IActionResult Index()
-        {
+        {   
+            decimal FedMinimumWage = 7.25m;
             List<Location> locations = context.Locations.ToList();
-            double FedMinimumWage = 7.25;
+            List<WageLocation> wageLocations1 = context.WageLocations.ToList();
+            List<int> locationIDs = context.Locations.Select(l => l.ID).ToList();
+
+            foreach (WageLocation wageLocation in wageLocations1)
+            {
+                if (!locationIDs.Contains(wageLocation.LocationID))
+                {
+                    context.WageLocations.Remove(wageLocation);
+                    context.SaveChanges();
+                }
+
+            }
 
             foreach (Location location in locations)
-            // Updates WageLocation Table with correct LocationID and Wage 
+
             {
                 if (context.WageLocations.Where(wl => location.ID == wl.LocationID).Count() != 0)
                 {
@@ -158,7 +176,6 @@ namespace FinalProject.Controllers
                     }
                 }
             }
-            // Fix this ViewModel
             List<WageLocation> wageLocations = context.WageLocations.ToList();
             ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
             {
@@ -194,10 +211,77 @@ namespace FinalProject.Controllers
             return View(addLocationViewModel);
         }
 
+        public IActionResult CSVSpecs()
+        {
+            return View();
+        }
+        
+        public IActionResult ImportCSV()
+        {
+            UploadFileViewModel uploadFileViewModel = new UploadFileViewModel();
+            return View(uploadFileViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ImportCSV(UploadFileViewModel uploadFileViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try {
+                //Read Contents of file to string
+                StreamReader reader = new StreamReader(uploadFileViewModel.file.OpenReadStream());
+
+                string csvData = reader.ReadToEnd();
+                
+                ////Split based on rows ('\n')
+
+                List<string> locationRows = csvData.Split('\n').ToList();
+
+                ////Execute a loop over the rows.
+                foreach (string locationRow in locationRows)
+                {
+                    if (locationRow != "")
+                    {
+                        List<string> locationStrings = locationRow.Split(',').ToList();
+                        Location location = new Location
+                        {
+                            Name = locationStrings[0],
+                            Address = locationStrings[1],
+                            City = locationStrings[2],
+                            County = locationStrings[3],
+                            State = locationStrings[4],
+                            ZIP = int.Parse(locationStrings[5])
+                        };
+                        context.Add(location);
+                        context.SaveChanges();
+                    }
+                    
+                }
+
+                return Redirect("/Location/Index");       
+            } catch 
+                {
+                    ViewBag.Message = "Please Check File Specifications and Try Again";
+                }
+            } 
+            
+            return View(uploadFileViewModel);
+        }
+ 
         public IActionResult EditLocation(int ID)
         {
             Location location = context.Locations.Single(l => l.ID == ID);
-            return View(location);
+            ViewSingleLocationViewModel viewSingleLocationViewModel = new ViewSingleLocationViewModel
+            {
+                ID = location.ID,
+                Name = location.Name,
+                Address = location.Address,
+                City = location.City,
+                County = location.County,
+                State = location.State,
+                ZIP = location.ZIP
+            };
+            return View(viewSingleLocationViewModel);
         }
 
         [HttpPost]
@@ -225,6 +309,7 @@ namespace FinalProject.Controllers
         public IActionResult DeleteLocation(int ID)
         {
             Location location = context.Locations.SingleOrDefault(l => l.ID == ID);
+
             context.Locations.Remove(location);
             context.SaveChanges();
 
@@ -237,6 +322,7 @@ namespace FinalProject.Controllers
             List<WageLocation> wageLocations = context.WageLocations.ToList();
 
             StringBuilder sb = new StringBuilder();
+            sb.Append("Minimum Wage,Location Name,Address,City,County,State,ZIP,\r\n");
 
             foreach (WageLocation wageLocation in wageLocations)
             {
@@ -268,7 +354,7 @@ namespace FinalProject.Controllers
 
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "WageLocations.csv");
         }
-
-        }
+       
+     }
 }
 

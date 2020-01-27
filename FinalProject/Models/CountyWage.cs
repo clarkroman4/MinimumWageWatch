@@ -10,7 +10,7 @@ namespace FinalProject.Models
         public int ID { get; set; }
         public string County { get; set; }
         public string State { get; set; }
-        public double MinWage { get; set; }
+        public decimal MinWage { get; set; }
         public DateTime EffectiveDate { get; set; }
     }
 }

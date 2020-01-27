@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "CSVSpecs";
+}
+
+<h1>CSV File Specifications</h1>
+
+<p>Please Upload a CSV file with no Column Headers</p>
+<br />
+<table>
+    <tr>
+        <th>Column 1</th>
+        <td>System number and Name <em>(e.g. 2000000 - Example)</em></td>
+    </tr>
+    <tr>
+        <th>Column 2</th>
+        <td>Address, including Ste Number</td>
+    </tr>
+    <tr>
+        <th>Column 3</th>
+        <td>City</td>
+    </tr>
+    <tr>
+        <th>Column 4</th>
+        <td>County</td>
+    </tr>
+    <tr>
+        <th>Column 5</th>
+        <td>State</td>
+    </tr>
+    <tr>
+        <th>Column 6</th>
+        <td>5 digit ZIP code</td>
+    </tr>
+</table>
+<br />
+<br />
+<form asp-controller="Location" asp-action="AddLocation">
+    <input type="submit" class="btn btn-primary" value="Back to Add Location"/>
+</form>

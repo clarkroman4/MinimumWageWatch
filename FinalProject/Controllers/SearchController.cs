@@ -25,9 +25,9 @@ namespace FinalProject.Controllers
         public IActionResult SearchResults(SearchViewModel searchViewModel)
         {
             if (ModelState.IsValid)
-            {
+            {   try { 
                 int searchTermInt = 0;
-                double searchTermDouble = 0;
+                decimal searchTermDecimal = 0;
                 string searchTermString = "";
 
                 if (searchViewModel.SearchBy == "ZIP")
@@ -36,7 +36,7 @@ namespace FinalProject.Controllers
                 }
                 else if (searchViewModel.SearchBy =="Minimum Wage")
                 {
-                    searchTermDouble = double.Parse(searchViewModel.SearchTerm);
+                    searchTermDecimal = decimal.Parse(searchViewModel.SearchTerm);
                 } else
                 {
                     searchTermString = searchViewModel.SearchTerm.ToString();
@@ -48,7 +48,7 @@ namespace FinalProject.Controllers
                 {
                     foreach (var wl in allWageLocations)
                     {
-                        if(searchTermDouble == wl.Wage)
+                        if(searchTermDecimal == wl.Wage)
                         {
                             searchResults.Add(wl);
                         }
@@ -112,6 +112,12 @@ namespace FinalProject.Controllers
                 ViewBag.searchResults = searchResults;
                 return View();
               }
+                catch (Exception E)
+                {
+                    ViewBag.Message = "Please check your search term and search type and try again.";
+                }
+                } 
+            
             return View(searchViewModel);
         }
     }
