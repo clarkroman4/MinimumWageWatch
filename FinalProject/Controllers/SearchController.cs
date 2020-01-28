@@ -7,6 +7,7 @@ using FinalProject.Models;
 using FinalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace FinalProject.Controllers
 {
     public class SearchController : Controller
@@ -25,16 +26,16 @@ namespace FinalProject.Controllers
         public IActionResult SearchResults(SearchViewModel searchViewModel)
         {
             if (ModelState.IsValid)
-            {   try { 
+            {                     
                 int searchTermInt = 0;
                 decimal searchTermDecimal = 0;
                 string searchTermString = "";
 
                 if (searchViewModel.SearchBy == "ZIP")
                 {
-                     searchTermInt = int.Parse(searchViewModel.SearchTerm);
+                    searchTermInt = int.Parse(searchViewModel.SearchTerm);
                 }
-                else if (searchViewModel.SearchBy =="Minimum Wage")
+                else if (searchViewModel.SearchBy == "Minimum Wage")
                 {
                     searchTermDecimal = decimal.Parse(searchViewModel.SearchTerm);
                 } else
@@ -48,16 +49,16 @@ namespace FinalProject.Controllers
                 {
                     foreach (var wl in allWageLocations)
                     {
-                        if(searchTermDecimal == wl.Wage)
+                        if (searchTermDecimal == wl.Wage)
                         {
                             searchResults.Add(wl);
                         }
                     }
                 } else if (searchViewModel.SearchBy == "Location Name")
                 {
-                    foreach(var wl in allWageLocations)
+                    foreach (var wl in allWageLocations)
                     {
-                        if(wl.LocationName.Contains(searchTermString))
+                        if (wl.LocationName.Contains(searchTermString))
                         {
                             searchResults.Add(wl);
                         }
@@ -71,7 +72,7 @@ namespace FinalProject.Controllers
                             searchResults.Add(wl);
                         }
                     }
-                } else if (searchViewModel.SearchBy =="City")
+                } else if (searchViewModel.SearchBy == "City")
                 {
                     foreach (var wl in allWageLocations)
                     {
@@ -111,15 +112,16 @@ namespace FinalProject.Controllers
                 }
                 ViewBag.searchResults = searchResults;
                 return View();
-              }
-                catch (Exception E)
-                {
-                    ViewBag.Message = "Please check your search term and search type and try again.";
-                }
-                } 
-            
+            }
+
+            // TO DO: Figure out this exception
+               
+             
+
+        
+
             return View(searchViewModel);
-        }
+             }
     }
 
 }
