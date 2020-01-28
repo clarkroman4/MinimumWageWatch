@@ -23,7 +23,6 @@ namespace FinalProject.Controllers
         public LocationController(ApplicationDbContext dbContext)
         {
             context = dbContext;
-
         }
 
         public IActionResult Index()
@@ -32,7 +31,7 @@ namespace FinalProject.Controllers
             List<Location> locations = context.Locations.ToList();
             List<WageLocation> wageLocations1 = context.WageLocations.ToList();
             List<int> locationIDs = context.Locations.Select(l => l.ID).ToList();
-
+            // Checks to see if any locations need to be deleted from WageLocations Joined Table
             foreach (WageLocation wageLocation in wageLocations1)
             {
                 if (!locationIDs.Contains(wageLocation.LocationID))
@@ -44,7 +43,7 @@ namespace FinalProject.Controllers
             }
 
             foreach (Location location in locations)
-
+                // Checks if existing locations in join table have been edited; saves the changes to the join table database
             {
                 if (context.WageLocations.Where(wl => location.ID == wl.LocationID).Count() != 0)
                 {
@@ -104,7 +103,7 @@ namespace FinalProject.Controllers
                         context.SaveChanges();
                     }
                 }
-
+                // Adds new rows to join table and collects the correct minimum wage
                 else
                 {
                     if (context.CityWages.Where(sw => sw.State == location.State).Where(sw => sw.City == location.City).Where(sw => sw.County == location.County).Count() != 0)
@@ -176,6 +175,7 @@ namespace FinalProject.Controllers
                     }
                 }
             }
+            // Gathers the updated join table and populates the view model
             List<WageLocation> wageLocations = context.WageLocations.ToList();
             ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
             {

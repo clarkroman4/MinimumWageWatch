@@ -25,103 +25,115 @@ namespace FinalProject.Controllers
         [HttpPost]
         public IActionResult SearchResults(SearchViewModel searchViewModel)
         {
+           
             if (ModelState.IsValid)
-            {                     
-                int searchTermInt = 0;
-                decimal searchTermDecimal = 0;
-                string searchTermString = "";
+                {
+                    int searchTermInt = 0;
+                    decimal searchTermDecimal = 0;
+                    string searchTermString = "";
 
-                if (searchViewModel.SearchBy == "ZIP")
-                {
-                    searchTermInt = int.Parse(searchViewModel.SearchTerm);
-                }
-                else if (searchViewModel.SearchBy == "Minimum Wage")
-                {
-                    searchTermDecimal = decimal.Parse(searchViewModel.SearchTerm);
-                } else
-                {
-                    searchTermString = searchViewModel.SearchTerm.ToString();
-                }
-                List<WageLocation> allWageLocations = context.WageLocations.ToList();
-                List<WageLocation> searchResults = new List<WageLocation>();
+                    if (searchViewModel.SearchBy == "ZIP")
+                    {
+                    try { searchTermInt = int.Parse(searchViewModel.SearchTerm); }
+                    catch { ViewBag.Message = "Please check your search type and try again";
+                        return View("/Index");
+                    }
+                    }
+                    else if (searchViewModel.SearchBy == "Minimum Wage")
+                    { try { searchTermDecimal = decimal.Parse(searchViewModel.SearchTerm); }
+                    catch { ViewBag.Message = "Please check your search type and try again";
+                        return View("Index");
+                    } 
+                 
+                    } 
+                    else
+                    {
+                        searchTermString = searchViewModel.SearchTerm.ToString();
+                    }
 
-                if (searchViewModel.SearchBy == "Minimum Wage")
-                {
-                    foreach (var wl in allWageLocations)
-                    {
-                        if (searchTermDecimal == wl.Wage)
-                        {
-                            searchResults.Add(wl);
-                        }
-                    }
-                } else if (searchViewModel.SearchBy == "Location Name")
-                {
-                    foreach (var wl in allWageLocations)
-                    {
-                        if (wl.LocationName.Contains(searchTermString))
-                        {
-                            searchResults.Add(wl);
-                        }
-                    }
-                } else if (searchViewModel.SearchBy == "Address")
-                {
-                    foreach (var wl in allWageLocations)
-                    {
-                        if (wl.Address.Contains(searchTermString))
-                        {
-                            searchResults.Add(wl);
-                        }
-                    }
-                } else if (searchViewModel.SearchBy == "City")
-                {
-                    foreach (var wl in allWageLocations)
-                    {
-                        if (wl.City.Contains(searchTermString))
-                        {
-                            searchResults.Add(wl);
-                        }
-                    }
-                } else if (searchViewModel.SearchBy == "County")
-                {
-                    foreach (var wl in allWageLocations)
-                    {
-                        if (wl.County.Contains(searchTermString))
-                        {
-                            searchResults.Add(wl);
-                        }
+                    List<WageLocation> allWageLocations = context.WageLocations.ToList();
+                    List<WageLocation> searchResults = new List<WageLocation>();
 
-                    }
-                } else if (searchViewModel.SearchBy == "State")
-                {
-                    foreach (var wl in allWageLocations)
+                    if (searchViewModel.SearchBy == "Minimum Wage")
                     {
-                        if (wl.State.Contains(searchTermString))
+                        foreach (var wl in allWageLocations)
                         {
-                            searchResults.Add(wl);
+                            if (searchTermDecimal == wl.Wage)
+                            {
+                                searchResults.Add(wl);
+                            }
                         }
                     }
-                } else if (searchViewModel.SearchBy == "ZIP")
-                {
-                    foreach (var wl in allWageLocations)
+                    else if (searchViewModel.SearchBy == "Location Name")
                     {
-                        if (wl.ZIP == searchTermInt)
+                        foreach (var wl in allWageLocations)
                         {
-                            searchResults.Add(wl);
+                            if (wl.LocationName.Contains(searchTermString))
+                            {
+                                searchResults.Add(wl);
+                            }
                         }
                     }
-                }
-                ViewBag.searchResults = searchResults;
-                return View();
+                    else if (searchViewModel.SearchBy == "Address")
+                    {
+                        foreach (var wl in allWageLocations)
+                        {
+                            if (wl.Address.Contains(searchTermString))
+                            {
+                                searchResults.Add(wl);
+                            }
+                        }
+                    }
+                    else if (searchViewModel.SearchBy == "City")
+                    {
+                        foreach (var wl in allWageLocations)
+                        {
+                            if (wl.City.Contains(searchTermString))
+                            {
+                                searchResults.Add(wl);
+                            }
+                        }
+                    }
+                    else if (searchViewModel.SearchBy == "County")
+                    {
+                        foreach (var wl in allWageLocations)
+                        {
+                            if (wl.County.Contains(searchTermString))
+                            {
+                                searchResults.Add(wl);
+                            }
+
+                        }
+                    }
+                    else if (searchViewModel.SearchBy == "State")
+                    {
+                        foreach (var wl in allWageLocations)
+                        {
+                            if (wl.State.Contains(searchTermString))
+                            {
+                                searchResults.Add(wl);
+                            }
+                        }
+                    }
+                    else if (searchViewModel.SearchBy == "ZIP")
+                    {
+                        foreach (var wl in allWageLocations)
+                        {
+                            if (wl.ZIP == searchTermInt)
+                            {
+                                searchResults.Add(wl);
+                            }
+                        }
+                    }
+
+                    ViewBag.searchResults = searchResults;
+                    return View();
             }
 
-            // TO DO: Figure out this exception
-               
-             
+            ViewBag.Message = "Please enter a search term";
+            return View("Index");
 
-        
-
-            return View(searchViewModel);
-             }
+        }
     }
 
 }

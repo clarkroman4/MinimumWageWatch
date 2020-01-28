@@ -6,7 +6,7 @@
 <h1>Search Results</h1>
 @if (Enumerable.Count(ViewBag.searchResults) == 0)
 {
-    <p>Sorry, no results for that search term.</p>
+    <p>Sorry, no results for that search term and type.</p>
     <form asp-controller="Search" asp-action="Index"><input type="submit" class="btn-primary" value="Return to Search Home"/></form>
 }
 else
