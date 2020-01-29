@@ -14,22 +14,18 @@ namespace FinalProject.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext context;
-    /*    
+  
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-        */
-        public HomeController (ApplicationDbContext dbContext)
+        public HomeController (ApplicationDbContext dbContext, ILogger<HomeController> logger)
         {
             context = dbContext;
+            _logger = logger;
         }
         
         public IActionResult Index()
         {
-            return View();
+            return View("LoggedInHomePage");
         }
 
         public IActionResult Login()

@@ -5,11 +5,14 @@
 }
 
 <h1>All Locations</h1>
+<br />
 <form asp-controller="location" asp-action="addlocation" method="post"><input type="submit" class="btn-primary" value="Add Location" /></form>
+<br />
 @using (Html.BeginForm("Export", "Location", FormMethod.Post))
 {
     <input type="submit" class="btn-primary" value="Export to CSV" />
 }
+<br />
 <table class="table-striped">
     <tr>
         <th>Minimum Wage</th>
