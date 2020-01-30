@@ -23,10 +23,6 @@ namespace FinalProject.ViewModels
         [Display(Name = "City")]
         public string City { get; set; }
 
-        [Required (ErrorMessage = "Please enter the County")]
-        [Display(Name = "County")]
-        public string County { get; set; }
-
         [Required (ErrorMessage = "Please enter the State")]
         [Display(Name = "State")]
         public string State { get; set; }

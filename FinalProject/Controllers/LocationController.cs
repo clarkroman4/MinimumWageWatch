@@ -15,15 +15,19 @@ using Microsoft.AspNetCore.Hosting;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace FinalProject.Controllers
 {   [Authorize]
     public class LocationController : Controller
     {
         private readonly ApplicationDbContext context;
+        private CountyAPI CountyAPI;
 
         public LocationController(ApplicationDbContext dbContext)
         {
             context = dbContext;
+            CountyAPI api = new CountyAPI();
+            CountyAPI = api;
         }
 
         public IActionResult Index()
@@ -201,7 +205,9 @@ namespace FinalProject.Controllers
                     Name = addLocationViewModel.Name,
                     Address = addLocationViewModel.Address,
                     City = addLocationViewModel.City,
-                    County = addLocationViewModel.County,
+
+                    //TO DO Refactor to use API
+                    County = CountyAPI.GetCounty(addLocationViewModel.Address,addLocationViewModel.City + "," + addLocationViewModel.State ),
                     State = addLocationViewModel.State,
                     ZIP = addLocationViewModel.ZIP
                 };
@@ -294,7 +300,7 @@ namespace FinalProject.Controllers
                 location.Name = viewSingleLocationViewModel.Name;
                 location.Address = viewSingleLocationViewModel.Address;
                 location.City = viewSingleLocationViewModel.City;
-                location.County = viewSingleLocationViewModel.County;
+                location.County = CountyAPI.GetCounty(viewSingleLocationViewModel.Address, viewSingleLocationViewModel.City + "," + viewSingleLocationViewModel.State);
                 location.State = viewSingleLocationViewModel.State;
                 location.ZIP = viewSingleLocationViewModel.ZIP;
 
