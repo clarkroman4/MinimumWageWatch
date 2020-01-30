@@ -13,9 +13,10 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
-{
+{   [Authorize]
     public class LocationController : Controller
     {
         private readonly ApplicationDbContext context;

@@ -8,9 +8,10 @@ using Microsoft.Extensions.Logging;
 using FinalProject.Models;
 using FinalProject.ViewModels;
 using FinalProject.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
-{
+{   [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext context;
@@ -22,41 +23,13 @@ namespace FinalProject.Controllers
             context = dbContext;
             _logger = logger;
         }
-        
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return View("LoggedInHomePage");
+            return View();
         }
 
-        public IActionResult Login()
-        {
-            LoginViewModel loginViewModel = new LoginViewModel();
-            return View(loginViewModel);
-        }
-
-        public IActionResult CreateUser()
-        {
-            CreateUserViewModel createUserViewModel = new CreateUserViewModel();
-            return View(createUserViewModel);
-        }
-        [HttpPost]
-        public IActionResult CreateUser(CreateUserViewModel createUser)
-        {
-            if (ModelState.IsValid)
-            {
-                User newUser = new User
-                {
-                    Email = createUser.Email,
-                    Username = createUser.Username,
-                    Password = createUser.Password
-                };
-                context.Add(newUser);
-                context.SaveChanges();
-                return Redirect("/location");
-            }
-
-            return View(createUser);
-        }
+        
 
         public IActionResult LoggedInHomePage()
         {

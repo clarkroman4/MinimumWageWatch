@@ -8,10 +8,10 @@
 <br />
 <form asp-controller="location" asp-action="addlocation" method="post"><input type="submit" class="btn-primary" value="Add Location" /></form>
 <br />
-@using (Html.BeginForm("Export", "Location", FormMethod.Post))
-{
+<form asp-controller="Location" asp-action="Export">
     <input type="submit" class="btn-primary" value="Export to CSV" />
-}
+</form>
+
 <br />
 <table class="table-striped">
     <tr>

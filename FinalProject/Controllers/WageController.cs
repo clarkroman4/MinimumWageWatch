@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using FinalProject.Data;
 using FinalProject.Models;
 using FinalProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
-{
+{   [Authorize]
     public class WageController : Controller
     {
         private readonly ApplicationDbContext context;
