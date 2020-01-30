@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.ViewModels
 {
-    public class ViewSingleLocationViewModel
+    public class ViewSingleLocationViewModel : StatesListViewModel
     {
         public int ID { get; set; }
 

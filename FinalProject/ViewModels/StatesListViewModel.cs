@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalProject.Models
+namespace FinalProject.ViewModels
 {
-    public class States
+    public class StatesListViewModel
     {
         public List<string> states = new List<string> { "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas",
             "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.ViewModels
 {
-    public class AddCityWageViewModel
+    public class AddCityWageViewModel : StatesListViewModel
     {
         [Required(ErrorMessage = "Please Enter the City Name")]
         public string City  { get; set; }

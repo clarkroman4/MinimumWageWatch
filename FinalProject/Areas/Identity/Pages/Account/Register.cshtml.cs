@@ -98,7 +98,7 @@ namespace FinalProject.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return Redirect("/Home/LoggedInHomePage");
                     }
                 }
                 foreach (var error in result.Errors)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.ViewModels
 {
-    public class AddLocationViewModel
+    public class AddLocationViewModel : StatesListViewModel
     {
 
         [Required(ErrorMessage="You must enter a name for the location")]

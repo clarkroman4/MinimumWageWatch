@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.ViewModels
 {
-    public class AddStateWageViewModel
+    public class AddStateWageViewModel : StatesListViewModel
     {
         [Required(ErrorMessage = "Please enter the minimum wage")]
         [DataType(DataType.Currency)]
