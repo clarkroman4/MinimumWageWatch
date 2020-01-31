@@ -359,7 +359,72 @@ namespace FinalProject.Controllers
 
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "WageLocations.csv");
         }
-       
-     }
+
+        public IActionResult SortByLocationName()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.LocationName).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+        public IActionResult SortByAddress()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.Address).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+        public IActionResult SortByCity()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.City).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+
+        public IActionResult SortByCounty()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.County).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+        public IActionResult SortByState()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.State).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+
+        public IActionResult SortByZIP()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.ZIP).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+        public IActionResult SortByMW()
+        {
+            List<WageLocation> wageLocations = context.WageLocations.OrderBy(wl => wl.Wage).ToList();
+            ViewLocationsViewModel viewLocationsViewModel = new ViewLocationsViewModel
+            {
+                WageLocations = wageLocations
+            };
+            return View("Index", viewLocationsViewModel);
+        }
+    }
 }
 
