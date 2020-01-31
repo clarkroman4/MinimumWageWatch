@@ -70,7 +70,6 @@ namespace FinalProject.Controllers
                 {
                     MinWage = addCityWageViewModel.MinWage,
                     City = addCityWageViewModel.City,
-                    County = addCityWageViewModel.County,
                     State = addCityWageViewModel.State,
                     EffectiveDate = addCityWageViewModel.EffectiveDate
                 };
@@ -186,7 +185,6 @@ namespace FinalProject.Controllers
             {
                 CityWage cityWage = context.CityWages.Single(cw => cw.ID == ID);
                 cityWage.City = addCityWageViewModel.City;
-                cityWage.County = addCityWageViewModel.County;
                 cityWage.State = addCityWageViewModel.State;
                 cityWage.EffectiveDate = addCityWageViewModel.EffectiveDate;
                 cityWage.MinWage = addCityWageViewModel.MinWage;

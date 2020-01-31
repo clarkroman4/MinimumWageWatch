@@ -49,7 +49,7 @@ namespace FinalProject.Controllers
                     } 
                     else
                     {
-                        searchTermString = searchViewModel.SearchTerm.ToString();
+                        searchTermString = searchViewModel.SearchTerm.ToString().ToUpper();
                     }
 
                     List<WageLocation> allWageLocations = context.WageLocations.ToList();

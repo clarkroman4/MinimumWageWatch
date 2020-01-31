@@ -53,7 +53,7 @@ namespace FinalProject.Controllers
                 if (context.WageLocations.Where(wl => location.ID == wl.LocationID).Count() != 0)
                 {
 
-                    if (context.CityWages.Where(sw => sw.State == location.State).Where(sw => sw.City == location.City).Where(sw => sw.County == location.County).Count() != 0)
+                    if (context.CityWages.Where(sw => sw.State == location.State).Where(sw => sw.City == location.City).Count() != 0)
                     {
                         WageLocation wageLocation = context.WageLocations.FirstOrDefault(wl => wl.LocationID == location.ID);
                         wageLocation.Wage = context.CityWages.Where(cw => cw.City == location.City).Select(cw => cw.MinWage).FirstOrDefault();
@@ -111,7 +111,7 @@ namespace FinalProject.Controllers
                 // Adds new rows to join table and collects the correct minimum wage
                 else
                 {
-                    if (context.CityWages.Where(sw => sw.State == location.State).Where(sw => sw.City == location.City).Where(sw => sw.County == location.County).Count() != 0)
+                    if (context.CityWages.Where(sw => sw.State == location.State).Where(sw => sw.City == location.City).Count() != 0)
                     {
                         WageLocation wageLocation = new WageLocation
                         {
@@ -202,13 +202,11 @@ namespace FinalProject.Controllers
             {
                 Location newlocation = new Location
                 {
-                    Name = addLocationViewModel.Name,
-                    Address = addLocationViewModel.Address,
-                    City = addLocationViewModel.City,
-
-                    //TO DO Refactor to use API
-                    County = CountyAPI.GetCounty(addLocationViewModel.Address,addLocationViewModel.City + "," + addLocationViewModel.State ),
-                    State = addLocationViewModel.State,
+                    Name = addLocationViewModel.Name.ToUpper(),
+                    Address = addLocationViewModel.Address.ToUpper(),
+                    City = addLocationViewModel.City.ToUpper(),
+                    County = CountyAPI.GetCounty(addLocationViewModel.Address,addLocationViewModel.City + "," + addLocationViewModel.State ).ToUpper(),
+                    State = addLocationViewModel.State.ToUpper(),
                     ZIP = addLocationViewModel.ZIP
                 };
                 context.Add(newlocation);
@@ -252,12 +250,12 @@ namespace FinalProject.Controllers
                         List<string> locationStrings = locationRow.Split(',').ToList();
                         Location location = new Location
                         {
-                            Name = locationStrings[0],
-                            Address = locationStrings[1],
-                            City = locationStrings[2],
-                            County = locationStrings[3],
-                            State = locationStrings[4],
-                            ZIP = int.Parse(locationStrings[5])
+                            Name = locationStrings[0].ToUpper(),
+                            Address = locationStrings[1].ToUpper(),
+                            City = locationStrings[2].ToUpper(),
+                            County = CountyAPI.GetCounty(locationStrings[1], locationStrings[2] + "," + locationStrings[3]).ToUpper(),
+                            State = locationStrings[3].ToUpper(),
+                            ZIP = int.Parse(locationStrings[4])
                         };
                         context.Add(location);
                         context.SaveChanges();
@@ -297,11 +295,11 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 Location location = context.Locations.SingleOrDefault(l => l.ID == viewSingleLocationViewModel.ID);
-                location.Name = viewSingleLocationViewModel.Name;
-                location.Address = viewSingleLocationViewModel.Address;
-                location.City = viewSingleLocationViewModel.City;
-                location.County = CountyAPI.GetCounty(viewSingleLocationViewModel.Address, viewSingleLocationViewModel.City + "," + viewSingleLocationViewModel.State);
-                location.State = viewSingleLocationViewModel.State;
+                location.Name = viewSingleLocationViewModel.Name.ToUpper();
+                location.Address = viewSingleLocationViewModel.Address.ToUpper();
+                location.City = viewSingleLocationViewModel.City.ToUpper();
+                location.County = CountyAPI.GetCounty(viewSingleLocationViewModel.Address, viewSingleLocationViewModel.City + "," + viewSingleLocationViewModel.State).ToUpper();
+                location.State = viewSingleLocationViewModel.State.ToUpper();
                 location.ZIP = viewSingleLocationViewModel.ZIP;
 
                 context.SaveChanges();

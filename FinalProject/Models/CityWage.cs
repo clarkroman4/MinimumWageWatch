@@ -9,7 +9,6 @@ namespace FinalProject.Models
         public int ID { get; set; }
         public decimal MinWage { get; set; }
         public string City { get; set; }
-        public string County { get; set; }
         public string State { get; set; }
         public DateTime EffectiveDate { get; set; }
     }
